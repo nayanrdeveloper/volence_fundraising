@@ -11,6 +11,7 @@ export default defineConfig({
         'light-grey': "#696969",
         'global-primary': "#292023",
         'global-orange': "#F39200",
+        'global-light-orange': "F3922B",
         'global-green': "#7AB82F"
       },
       boxShadow: {
