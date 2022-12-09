@@ -16,7 +16,7 @@ function Navbar() {
     },
     {
       name: "About Us",
-      to: "/",
+      to: "/about",
     },
     {
       name: "FAQ",
@@ -25,6 +25,10 @@ function Navbar() {
     {
       name: "Volunteer",
       to: "/",
+    },
+    {
+      name: "Causes",
+      to: "/causes",
     },
   ];
   return (
@@ -56,7 +60,7 @@ function Navbar() {
               return (
                 <li key={navItem.name}>
                   <Link
-                    href="#"
+                    href={navItem.to}
                     className="block py-2 pl-3 pr-4 text-light-grey rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-global-primary md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
                     {navItem.name}
