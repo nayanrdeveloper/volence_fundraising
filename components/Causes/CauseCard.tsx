@@ -19,7 +19,7 @@ function CauseCard(causeData: causeStruct) {
         alt={causeData.title}
         height={369}
         width={355}
-        className="rounded-lg"
+        className="rounded-lg h-[20rem] w-[20rem] md:h-[22rem] md:w-[22rem]"
       />
       <div className="flex justify-between">
         <div className="flex gap-2">

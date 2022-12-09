@@ -18,6 +18,7 @@ function Feature() {
             return (
               <Image
                 src={image}
+                key={index}
                 alt=""
                 width={350}
                 height={220}

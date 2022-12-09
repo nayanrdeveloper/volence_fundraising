@@ -47,9 +47,9 @@ function Causes() {
         <h4 className="text-global-primary text-3xl font-semibold">
           Are You Ready For a Better Our Active Campaigns.
         </h4>
-        <div className="grid grid-cols-3 gap-2 mt-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-5">
           {causeList.map((causeData, index) => {
-            return <CauseCard {...causeData} />;
+            return <CauseCard {...causeData} key={index} />;
           })}
         </div>
       </div>
