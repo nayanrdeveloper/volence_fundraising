@@ -21,5 +21,9 @@ export default defineConfig({
         'line-pattern': "url('/lines.png')"
       }
     }
+  },
+  shortcuts: {
+    'create-input' : "border-2 w-full border-[#7AB82F30] text-light-grey h-12 p-4 rounded-xl",
+    'btn-submit' : "",
   }
 })

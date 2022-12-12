@@ -24,11 +24,15 @@ function Navbar() {
     },
     {
       name: "Volunteer",
-      to: "/",
+      to: "/volunteer",
     },
     {
       name: "Causes",
       to: "/causes",
+    },
+    {
+      name: "Create Cause",
+      to: "/createcuase",
     },
   ];
   return (
