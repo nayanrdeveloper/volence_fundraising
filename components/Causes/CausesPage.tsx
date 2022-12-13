@@ -31,8 +31,6 @@ function CausesPage() {
 
       let newItems: any = await Promise.all(
         data.map(async (d: any) => {
-          // const tokenUri = await tokenContract.tokenURI(d._tokenId);
-          // console.log(tokenUri);
           const meta = await axios.get(d.Img);
           const targetAmount = ethers.utils.formatUnits(
             d.Target.toString(),
@@ -56,7 +54,6 @@ function CausesPage() {
             location: d.Location,
             numRequests: d.numRequests.toNumber(),
           };
-          // const tokenUri = await contract.tokenURI(d.tokenId);
         })
       );
       setCampaignList(newItems);

@@ -32,12 +32,20 @@ function Navbar() {
       to: "/volunteer",
     },
     {
+      name: "Register Volunteer",
+      to: "/createvolunteer",
+    },
+    {
       name: "Causes",
       to: "/causes",
     },
     {
       name: "Create Cause",
       to: "/createcuase",
+    },
+    {
+      name: "Create Category",
+      to: "/createcategory",
     },
   ];
   return (
