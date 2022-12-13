@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CauseCard from "./CauseCard";
+import axios from "axios";
+import { useSigner, useContract, useProvider } from "wagmi";
+import { ethers } from "ethers";
+import voielnceAbi from "../../ContractAbi/violenceAbi";
 
 function CausesPage() {
+  const { data: signer, isError } = useSigner();
+  const provider = useProvider();
+  const [campaignList, setCampaignList] = useState<any>();
   interface causeStruct {
     title: string;
     category: string;
@@ -11,6 +18,57 @@ function CausesPage() {
     id: number;
     image: string;
   }
+
+  const contract = useContract({
+    address: process.env.NEXT_PUBLIC_VOLENCE_CONRACT,
+    abi: voielnceAbi,
+    signerOrProvider: signer || provider,
+  });
+
+  const getItems = async () => {
+    try {
+      const data = await contract?.getAllProjects();
+
+      let newItems: any = await Promise.all(
+        data.map(async (d: any) => {
+          // const tokenUri = await tokenContract.tokenURI(d._tokenId);
+          // console.log(tokenUri);
+          const meta = await axios.get(d.Img);
+          const targetAmount = ethers.utils.formatUnits(
+            d.Target.toString(),
+            "ether"
+          );
+          const raisedAmount = ethers.utils.formatUnits(
+            d.CapitalRaised.toString(),
+            "ether"
+          );
+          const imageUrl = `https://ipfs.io/ipfs/${meta.data.image.substr(7)}`;
+          return {
+            targetAmount,
+            raisedAmount,
+            tokenId: d.OrgainizationId.toNumber(),
+            creator: d.Creator,
+            image: imageUrl,
+            deadline: d.Deadline,
+            title: d.Title,
+            desc: d.Description,
+            location: d.Location,
+            numRequests: d.numRequests.toNumber(),
+          };
+          // const tokenUri = await contract.tokenURI(d.tokenId);
+        })
+      );
+      setCampaignList(newItems);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (signer) {
+      getItems();
+    }
+  });
   const causeList: causeStruct[] = [
     {
       title: "Help For Humanity",
@@ -74,7 +132,7 @@ function CausesPage() {
         Are You Ready For a Better Our Active Campaigns.
       </h4>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-5">
-        {causeList.map((causeData, index) => {
+        {campaignList && campaignList.map((causeData: any, index: number) => {
           return <CauseCard {...causeData} key={index} />;
         })}
       </div>

@@ -4,7 +4,13 @@ import "windi.css";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 
-import { WagmiConfig, createClient, configureChains, mainnet } from "wagmi";
+import {
+  WagmiConfig,
+  createClient,
+  configureChains,
+  mainnet,
+  Chain,
+} from "wagmi";
 
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
@@ -14,8 +20,26 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 
+const klaytn: Chain = {
+  id: 1001,
+  name: "Klaytn Baobab",
+  network: "avalanche",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Klaytn",
+    symbol: "KLAY",
+  },
+  rpcUrls: {
+    default: { http: ["https://api.baobab.klaytn.net:8651/"] },
+  },
+  blockExplorers: {
+    etherscan: { name: "SnowTrace", url: "https://baobab.scope.klaytn.com/" },
+    default: { name: "SnowTrace", url: "https://baobab.scope.klaytn.com/" },
+  },
+};
+
 const { chains, provider, webSocketProvider } = configureChains(
-  [mainnet],
+  [klaytn],
   [publicProvider()]
 );
 
