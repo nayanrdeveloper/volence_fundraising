@@ -44,14 +44,15 @@ function CausesPage() {
           );
           const imageUrl = `https://ipfs.io/ipfs/${meta.data.image.substr(7)}`;
           return {
+            projectId: d.OrgainizationId.toNumber(),
+            title: d.Title,
+            category: d.Category,
+            desc: d.Description,
             targetAmount,
             raisedAmount,
-            tokenId: d.OrgainizationId.toNumber(),
-            creator: d.Creator,
             image: imageUrl,
-            deadline: d.Deadline,
-            title: d.Title,
-            desc: d.Description,
+            creator: d.Creator,
+            deadline: d.Deadline.toNumber(),
             location: d.Location,
             numRequests: d.numRequests.toNumber(),
           };

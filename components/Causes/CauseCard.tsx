@@ -2,13 +2,17 @@ import Image from "next/image";
 import React from "react";
 
 interface causeStruct {
+  projectId: number;
   title: string;
   category: string;
-  raisedAmount: number;
-  targetAmount: number;
   desc: string;
-  id: number;
+  targetAmount: number;
+  raisedAmount: number;
   image: string;
+  creator: string;
+  deadline: number;
+  location: string;
+  numRequests: number;
 }
 
 function CauseCard(causeData: causeStruct) {
