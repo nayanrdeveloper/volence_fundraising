@@ -15,7 +15,7 @@ interface causeStruct {
   numRequests: number;
 }
 
-function CauseCard(causeData: causeStruct) {
+function CauseCard(causeData: any) {
   return (
     <div className="p-5 flex flex-col gap-3 shadow-hero-section rounded-lg">
       <Image
