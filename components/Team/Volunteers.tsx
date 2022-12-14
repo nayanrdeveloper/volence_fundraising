@@ -20,7 +20,7 @@ function Volunteers() {
   }
   const { data: signer, isError } = useSigner();
   const provider = useProvider();
-  const [volunteerList, setVolunteerList] = useState<any>();
+  const [volunteerList, setVolunteerList] = useState<any>([]);
 
   const contract = useContract({
     address: process.env.NEXT_PUBLIC_VOLENCE_CONRACT,
@@ -30,31 +30,46 @@ function Volunteers() {
 
   const getVolunteerList = async () => {
     try {
-      console.log("Start");
-      
-      const data = await contract?.getAllVolunteer();
-      let newItems: any = await Promise.all(
-        data.map(async (d: any) => {
+      // setIsLoading(true);
+      const volunteerData = await contract?.getAllVolunteer();
+      const data: any = await Promise.all(
+        volunteerData.map(async (d: any) => {
+          // console.log(d);
+          
           const meta = await axios.get(d.image);
+          // console.log(meta);
+          
+          const volunteerId = d.volunteerId.toNumber();
           const imageUrl = `https://ipfs.io/ipfs/${meta.data.image.substr(7)}`;
           return {
             name: d.name,
             desc: d.desc,
             image: imageUrl,
-            volunteerId: d.volunteerId,
+            volunteerId: volunteerId,
             role: d.role,
             email: d.email,
             phone: d.phone,
             location: d.location,
             active: d.active,
-            address: d.volunteerAddress,
+            address: d.volunteerAddress
           };
         })
       );
-      setVolunteerList(newItems);
-      console.log(newItems);
-      
-    } catch (error: any) {}
+      setVolunteerList(data);
+      console.log(data);
+      // setIsLoading(false);
+    } catch (error: any) {
+      // toast.error(error.message, {
+      //   position: "top-right",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      // });
+      // setIsLoading(false);
+    }
   };
 
   useEffect(() => {
