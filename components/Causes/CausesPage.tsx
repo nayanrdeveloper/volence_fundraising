@@ -27,7 +27,7 @@ function CausesPage() {
 
   const getItems = async () => {
     try {
-      const data = await contract?.getAllProjects();
+      const data = await contract?.getVolunterById(`1`);
 
       let newItems: any = await Promise.all(
         data.map(async (d: any) => {

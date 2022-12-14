@@ -3,9 +3,15 @@ import React from "react";
 
 interface teamStruct {
   name: string;
-  role: string;
   desc: string;
   image: string;
+  volunteerId: number;
+  role: string;
+  email:string;
+  phone: string;
+  location: string;
+  active: string;
+  address: string;
 }
 function TeamCard(teamData: teamStruct) {
   return (
@@ -20,8 +26,7 @@ function TeamCard(teamData: teamStruct) {
       <h3 className="text-3xl">{teamData.name}</h3>
       <span className="text-global-green">{teamData.role}</span>
       <p className="text-light-grey">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro enim
-        numquam architecto deserunt quo, assumenda quis natus veniam soluta
+        {teamData.desc}
       </p>
     </div>
   );

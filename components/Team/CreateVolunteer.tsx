@@ -1,7 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
+import { useSigner, useContract } from "wagmi";
+import voielnceAbi from "../../ContractAbi/violenceAbi";
+import { ethers } from "ethers";
+import { NFTStorage, File } from "nft.storage";
+import volunteer from "../../pages/volunteer";
 
 function CreateVolunteer() {
+  const { data: signer, isError, isLoading } = useSigner();
+  const contract = useContract({
+    address: process.env.NEXT_PUBLIC_VOLENCE_CONRACT,
+    abi: voielnceAbi,
+    signerOrProvider: signer,
+  });
+
+  const [volunteerInputs, setVolunteerInputs] = useState({
+    name: "",
+    role: "",
+    desc: "",
+    location: "",
+    email: "",
+    phone: "",
+  });
+
+  const registerVolunteer = async (event: any) => {
+    event.preventDefault();
+    const nftStorage = new NFTStorage({
+        token: process.env.NEXT_PUBLIC_NFT_STORAGE_API || "",
+      });
+      const imageFile = event.target.file.files[0];
+      const link = await nftStorage.store({
+        image: imageFile,
+        name: volunteerInputs.name,
+        description: volunteerInputs.desc,
+      });
+      const ipfsURL = `https://ipfs.io/ipfs/${link.url.substr(7)}`;
+
+      let volunteerTransaction = await contract?.registerasAsVolunteer(
+        volunteerInputs.name,
+        volunteerInputs.desc,
+        ipfsURL,
+        volunteerInputs.role,
+        volunteerInputs.location,
+        volunteerInputs.email,
+        volunteerInputs.phone
+      )
+
+      await volunteerTransaction.wait();
+      console.log(volunteerTransaction);
+  }
+  const [volunteerImage, setVolunteerImage] = useState<File | null>(null);
   return (
     <div className="mt-5 container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-10">
       <div className="">
@@ -10,26 +58,32 @@ function CreateVolunteer() {
         </h3>
       </div>
       <div className="shadow-hero-section px-3 md:px-10 py-5 mt-3 md:mt-10 rounded-md">
-        <form>
+        <form onSubmit={registerVolunteer}>
           <div className="flex flex-col gap-3">
             <input
               type={"text"}
               className="create-input"
               placeholder="Name"
               name="name"
-              // value={causeInputs.title}
-              // onChange={(e) =>
-              //   setCauseInputs({ ...causeInputs, title: e.currentTarget.value })
-              // }
+              value={volunteerInputs.name}
+              onChange={(e) =>
+                setVolunteerInputs({
+                  ...volunteerInputs,
+                  name: e.currentTarget.value,
+                })
+              }
             />
             <textarea
               className="create-input h-20"
               placeholder="Role description"
               name="desc"
-              // value={causeInputs.desc}
-              // onChange={(e) =>
-              //   setCauseInputs({ ...causeInputs, desc: e.currentTarget.value })
-              // }
+              value={volunteerInputs.desc}
+                onChange={(e) =>
+                  setVolunteerInputs({
+                    ...volunteerInputs,
+                    desc: e.currentTarget.value,
+                  })
+                }
             ></textarea>
             <div className="flex gap-2">
               <input
@@ -37,26 +91,26 @@ function CreateVolunteer() {
                 className="create-input"
                 placeholder="Role"
                 name="role"
-                // value={causeInputs.amount}
-                // onChange={(e) =>
-                //   setCauseInputs({
-                //     ...causeInputs,
-                //     amount: parseFloat(e.currentTarget.value),
-                //   })
-                // }
+                value={volunteerInputs.role}
+                onChange={(e) =>
+                  setVolunteerInputs({
+                    ...volunteerInputs,
+                    role: e.currentTarget.value,
+                  })
+                }
               />
               <input
                 type={"text"}
                 className="create-input"
                 placeholder="Location"
                 name="location"
-                // value={causeInputs.location}
-                // onChange={(e) =>
-                //   setCauseInputs({
-                //     ...causeInputs,
-                //     location: e.currentTarget.value,
-                //   })
-                // }
+                value={volunteerInputs.location}
+                onChange={(e) =>
+                  setVolunteerInputs({
+                    ...volunteerInputs,
+                    location: e.currentTarget.value,
+                  })
+                }
               />
             </div>
             <div className="flex gap-2">
@@ -65,26 +119,26 @@ function CreateVolunteer() {
                 className="create-input"
                 placeholder="Email"
                 name="email"
-                // value={causeInputs.amount}
-                // onChange={(e) =>
-                //   setCauseInputs({
-                //     ...causeInputs,
-                //     amount: parseFloat(e.currentTarget.value),
-                //   })
-                // }
+                value={volunteerInputs.email}
+                onChange={(e) =>
+                  setVolunteerInputs({
+                    ...volunteerInputs,
+                    email: e.currentTarget.value,
+                  })
+                }
               />
               <input
                 type={"text"}
                 className="create-input"
                 placeholder="Phone Number"
                 name="phone"
-                // value={causeInputs.location}
-                // onChange={(e) =>
-                //   setCauseInputs({
-                //     ...causeInputs,
-                //     location: e.currentTarget.value,
-                //   })
-                // }
+                value={volunteerInputs.phone}
+                onChange={(e) =>
+                  setVolunteerInputs({
+                    ...volunteerInputs,
+                    phone: e.currentTarget.value,
+                  })
+                }
               />
             </div>
             <div className="flex items-center justify-center w-full">
@@ -107,9 +161,9 @@ function CreateVolunteer() {
                   type="file"
                   className="hidden"
                   name="file"
-                //   onChange={(e) =>
-                //     setImage(e.currentTarget.files && e.currentTarget.files[0])
-                //   }
+                    onChange={(e) =>
+                      setVolunteerImage(e.currentTarget.files && e.currentTarget.files[0])
+                    }
                 />
               </label>
             </div>

@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import voielnceAbi from "../../ContractAbi/violenceAbi";
+import { useContract } from "wagmi";
+import { ethers } from "ethers";
+import { useSigner } from "wagmi";
+import { NFTStorage, File } from "nft.storage";
 
 function CreateCategory() {
+  const { data: signer, isError, isLoading } = useSigner();
+  const contract = useContract({
+    address: process.env.NEXT_PUBLIC_VOLENCE_CONRACT,
+    abi: voielnceAbi,
+    signerOrProvider: signer,
+  });
+  const [categoryInputs, setCategoryInputs] = useState({
+    name: "",
+    desc:"",
+  });
+  const [categoryImage, setCategoryImage] = useState<File | null>(null);
+
   return (
     <div className="mt-5 container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-10">
       <div className="">

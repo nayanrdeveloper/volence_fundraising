@@ -69,10 +69,10 @@ function Navbar() {
           <AiOutlineMenu />
         </button>
         <div
-          className={`${open ? "" : "hidden"} w-full md:block md:w-auto`}
+          className={`${open ? "" : "hidden"}  w-full md:block md:w-auto`}
           id="navbar-default"
         >
-          <ul className="flex items-center flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="flex items-center flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-500 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             {navItemList.map((navItem) => {
               return (
                 <li key={navItem.name}>
@@ -97,7 +97,7 @@ function Navbar() {
                     Connect Wallet
                   </div>
                   <div
-                    className={`absolute z-20 right-10 ${
+                    className={`absolute z-20 right-8 bg-gray-100 p-2 rounded-md ${
                       showWalletList ? "" : "hidden"
                     }`}
                   >

@@ -14,7 +14,7 @@ function HeroSection() {
             laudantium sint expedita.
           </p>
         </div>
-        <div className="relative z-10 mx-10 mt-5 md:mt-0">
+        <div className="relative z-5 mx-10 mt-5 md:mt-0">
           <Image
             src={"/charing_food.jpg"}
             alt="charing food"

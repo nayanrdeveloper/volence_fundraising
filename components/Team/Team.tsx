@@ -8,7 +8,7 @@ function Team() {
     desc: string;
     image: string;
   }
-  const teamList: teamStruct[] = [
+  const teamList = [
     {
       name: "Fahima Khatun",
       role: "Reporter",
@@ -40,11 +40,11 @@ function Team() {
       <h4 className="text-global-primary text-3xl font-semibold text-center">
         Are You Ready For a Better Our Active Campaigns.
       </h4>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 rounded-lg">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 rounded-lg">
         {teamList.map((teamData: teamStruct, index) => {
           return <TeamCard key={index} {...teamData} />;
         })}
-      </div>
+      </div> */}
     </div>
   );
 }
