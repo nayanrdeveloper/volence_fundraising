@@ -16,7 +16,7 @@ interface teamStruct {
 }
 function TeamCard(teamData: teamStruct) {
   return (
-    <div className="p-5 flex flex-col justify-start shadow-hero-section rounded-lg">
+    <div className="p-5 flex flex-col justify-start shadow-hero-section rounded-lg dark:(border-2 border-dark-border bg-dark-card)">
       <Image
         src={teamData.image}
         alt={teamData.name}
@@ -27,8 +27,8 @@ function TeamCard(teamData: teamStruct) {
       <Link href={`/volunteer/${teamData.volunteerId}`}>
         <h3 className="text-3xl">{teamData.name}</h3>
       </Link>
-      <span className="text-global-green">{teamData.role}</span>
-      <p className="text-light-grey">{teamData.desc}</p>
+      <span className="text-global-green dark:(text-global-yellow)">{teamData.role}</span>
+      <p className="text-light-grey dark:(text-global-grey-dark)">{teamData.desc}</p>
     </div>
   );
 }

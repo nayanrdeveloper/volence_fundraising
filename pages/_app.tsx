@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import "windi.css";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
+import {ThemeProvider} from "next-themes"
 
 import {
   WagmiConfig,
@@ -73,11 +74,13 @@ const client = createClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <div className="dark:dark-design dark:bg-[#030B29]">
       <WagmiConfig client={client}>
-        <Navbar />
-        <Component {...pageProps} />
-        <Footer />
+        <ThemeProvider attribute="class">
+          <Navbar />
+          <Component {...pageProps} />
+          <Footer />
+        </ThemeProvider>
       </WagmiConfig>
     </div>
   );

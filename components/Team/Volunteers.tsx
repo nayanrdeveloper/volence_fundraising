@@ -131,7 +131,7 @@ function Volunteers() {
   return (
     <div>
       <div className="container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-10">
-        <h3 className="text-4xl text-global-primary text-center">Volunteer</h3>
+        <h3 className="text-4xl text-global-primary text-center dark:(text-global-yellow)">Volunteer</h3>
         <h4 className="text-center text-2xl font-normal">
           Our Expert Volunteer
         </h4>

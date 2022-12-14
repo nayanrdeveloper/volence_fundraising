@@ -43,8 +43,8 @@ function Causes() {
   return (
     <div>
       <div className="flex flex-col items-center container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-10">
-        <h3 className="text-global-orange">Causes</h3>
-        <h4 className="text-global-primary text-3xl font-semibold">
+        <h3 className="text-global-orange dark:(global-yellow)">Causes</h3>
+        <h4 className="text-global-primary text-3xl font-semibold dark:(text-white)">
           Are You Ready For a Better Our Active Campaigns.
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-5">

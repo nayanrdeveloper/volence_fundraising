@@ -4,10 +4,16 @@ import React, { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useConnect, useAccount } from "wagmi";
 import shortAddress from "../../utils/shortAddress"
+import {useTheme} from "next-themes";
+import { MdOutlineDarkMode } from 'react-icons/md';
+import { CiLight } from 'react-icons/ci';
+
+
 
 function Navbar() {
   const { connect, connectors, error, isLoading, pendingConnector } =
     useConnect();
+  const {theme, setTheme} = useTheme();
   const { address, isConnecting, isDisconnected, isConnected } = useAccount();
   const [open, setOpen] = useState(false);
   const [showWalletList, setShowWalletList] = useState<boolean>(false);
@@ -23,10 +29,6 @@ function Navbar() {
     {
       name: "About Us",
       to: "/about",
-    },
-    {
-      name: "FAQ",
-      to: "/",
     },
     {
       name: "Volunteer",
@@ -50,7 +52,7 @@ function Navbar() {
     // },
   ];
   return (
-    <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 relative z-10">
+    <nav className="border-gray-200 px-2 sm:px-4 py-2.5 rounded  relative z-10">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <Link href="/" className="flex items-center">
           <Image
@@ -73,13 +75,16 @@ function Navbar() {
           className={`${open ? "" : "hidden"}  w-full md:block md:w-auto`}
           id="navbar-default"
         >
-          <ul className="flex items-center flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-500 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="flex items-center flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
+            <li onClick={() => setTheme(theme == 'light' ? 'dark' : 'light')} className="cursor-pointer">
+              {theme == 'light'? <div className="p-2 flex gap-2 items-center shadow-hero-section"><MdOutlineDarkMode className="text-2xl" /> Dark</div> : <div className="p-2 flex gap-2 items-center shadow-hero-section dark:(border-2 border-dark-border rounded-2xl)"><CiLight className="text-2xl" /> Light</div>}
+            </li>
             {navItemList.map((navItem) => {
               return (
                 <li key={navItem.name}>
                   <Link
                     href={navItem.to}
-                    className="block py-2 pl-3 pr-4 text-light-grey rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-global-primary md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    className="block py-2 pl-3 pr-4 text-light-grey rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-global-primary md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-[#FBAA30] dark:hover:text-white md:dark:hover:bg-transparent"
                   >
                     {navItem.name}
                   </Link>
@@ -88,12 +93,12 @@ function Navbar() {
             })}
             <li>
               {isConnected ? (
-                <div className="bg-global-green py-2 px-4 rounded-xl text-white cursor-pointer">{shortAddress(address)}</div>
+                <div className="bg-global-green py-2 px-4 rounded-xl text-white cursor-pointer dark:(bg-global-yellow text-black)">{shortAddress(address)}</div>
               ) : (
                 <div>
                   <div
                     onClick={() => setShowWalletList(!showWalletList)}
-                    className="bg-global-green py-2 px-4 rounded-xl text-white cursor-pointer"
+                    className="bg-global-green py-2 px-4 rounded-xl text-white cursor-pointer dark:(bg-global-yellow text-black)"
                   >
                     Connect Wallet
                   </div>

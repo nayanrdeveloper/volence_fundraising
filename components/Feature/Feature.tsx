@@ -28,26 +28,26 @@ function Feature() {
           })}
         </div>
         <div className="flex flex-col gap-2">
-          <h3 className="text-global-orange">Features</h3>
+          <h3 className="text-global-orange dark:(text-global-yellow)">Features</h3>
           <span className="text-3xl font-semibold">
             Donate To People In Our Features.
           </span>
-          <p className="text-light-grey">
+          <p className="text-light-grey dark:(text-global-grey-dark)">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita
             laborum quasi nesciunt itaque sapiente dignissimos fugit a eveniet,
             inventore ullam enim aut ea, deserunt atque ipsum doloremque facilis
             odio exercitationem.
           </p>
           <ul className="">
-            <li className="items-center flex gap-2 text-global-primary p-2 font-semibold">
+            <li className="items-center flex gap-2 text-global-primary p-2 font-semibold dark:(text-white)">
               <BiSupport className="text-global-orange text-4xl rounded-full p-2 bg-orange-100" />{" "}
               24/7 Support
             </li>
-            <li className="items-center flex gap-2 text-global-primary p-2 font-semibold">
+            <li className="items-center flex gap-2 text-global-primary p-2 font-semibold dark:(text-white)">
               <BiDonateBlood className="text-global-green text-4xl rounded-full p-2 bg-green-100" />{" "}
               Make Donation
             </li>
-            <li className="items-center flex gap-2 text-global-primary p-2 font-semibold">
+            <li className="items-center flex gap-2 text-global-primary p-2 font-semibold dark:(text-white)">
               <FaUserCheck className="text-global-orange text-4xl rounded-full p-2 bg-orange-100" />{" "}
               Success Rate
             </li>

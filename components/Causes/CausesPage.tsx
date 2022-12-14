@@ -125,7 +125,7 @@ function CausesPage() {
   ];
   return (
     <div className="container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-10">
-      <h3 className="text-4xl text-global-primary text-center">Causes</h3>
+      <h3 className="text-4xl text-global-primary text-center dark:(text-global-yellow)">Causes</h3>
       <h4 className="text-center text-2xl font-normal">
         Are You Ready For a Better Our Active Campaigns.
       </h4>

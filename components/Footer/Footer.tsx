@@ -13,7 +13,7 @@ function Footer() {
         <FooterCol3 />
         <FooterCol4 />
       </div>
-      <p className="py-5 border-t border-bg-global-green text-light-grey">Copyright © 2022 Volence | Powered by Volence</p>
+      <p className="py-5 border-t border-bg-global-green text-light-grey dark:(text-global-grey-dark)">Copyright © 2022 Volence | Powered by Volence</p>
     </footer>
   );
 }

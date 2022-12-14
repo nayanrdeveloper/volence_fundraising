@@ -12,7 +12,7 @@ function HomePage() {
         <HeroSection />
         <Feature />
         <Causes />
-        <Team/>
+        {/* <Team/> */}
         <Testimonial />
         <Banner />
     </div>

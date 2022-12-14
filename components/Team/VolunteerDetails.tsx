@@ -46,7 +46,7 @@ function VolunteerDetails() {
   return (
     <div>
       <div className="mt-5 flex flex-col container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-10">
-        <h3 className="text-3xl text-global-primary text-center p-5 bg-[#FAFCF6]">
+        <h3 className="text-3xl text-global-primary text-center p-5 bg-[#FAFCF6] dark:(bg-dark-card text-global-yellow border-2 border-dark-border) rounded-lg">
           Volunteer Details
         </h3>
         {volunteerData && (
@@ -65,36 +65,36 @@ function VolunteerDetails() {
                 <h4 className="text-3xl font-semibold">{volunteerData.name}</h4>
                 <h5 className="text-2xl">{volunteerData.role}</h5>
                 <div>
-                  <span className="font-semibold text-global-primary">
+                  <span className="font-semibold text-global-primary dark:(text-global-yellow)">
                     Location:{" "}
                   </span>
-                  <span className="text-light-grey">
+                  <span className="text-light-grey dark:(text-global-grey-dark)">
                     {volunteerData.location}
                   </span>
                 </div>
                 <div>
-                  <span className="font-semibold text-global-primary">
+                  <span className="font-semibold text-global-primary dark:(text-global-yellow)">
                     Email:{" "}
                   </span>
-                  <span className="text-light-grey">
+                  <span className="text-light-grey dark:(text-global-grey-dark)">
                     {volunteerData.email}
                   </span>
                 </div>
                 <div>
-                  <span className="font-semibold text-global-primary">
+                  <span className="font-semibold text-global-primary dark:(text-global-yellow)">
                     Phone:{" "}
                   </span>
-                  <span className="text-light-grey">{volunteerData.phone}</span>
+                  <span className="text-light-grey dark:(text-global-grey-dark)">{volunteerData.phone}</span>
                 </div>
                 <div>
-                  <span className="font-semibold text-global-primary">
+                  <span className="font-semibold text-global-primary dark:(text-global-yellow)">
                     Account:{" "}
                   </span>
-                  <span className="text-light-grey">
+                  <span className="text-light-grey dark:(text-global-grey-dark)">
                    {volunteerData.address}
                   </span>
                 </div>
-                <p>
+                <p className="dark:(text-global-grey-dark)">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Consequatur obcaecati similique cupiditate totam dicta esse
                   repudiandae, officia accusamus iusto illo?

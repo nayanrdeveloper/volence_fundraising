@@ -14,7 +14,7 @@ function FooterCol1() {
           height={120}
         />
       </Link>
-      <p className="text-light-grey mt-1">
+      <p className="text-light-grey mt-1 dark:(text-global-grey-dark)">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quod
         facilis iure quae accusantium officiis temporibus
       </p>

@@ -91,7 +91,7 @@ function CauseDetail() {
     <div>
       {campaignData && (
         <div className="mt-5 flex flex-col container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-10">
-          <h3 className="text-3xl text-global-primary text-center p-5 bg-[#FAFCF6]">
+          <h3 className="text-3xl text-global-primary text-center p-5 bg-[#FAFCF6] dark:(bg-dark-card text-global-yellow border-2 border-dark-border) rounded-lg">
             Cause Details
           </h3>
           <Image
@@ -124,22 +124,22 @@ function CauseDetail() {
               <div className="flex flex-col gap-1">
                 {causeFaqList.map((causeFaq) => {
                   return (
-                    <div className="shadow-hero-section mt-5 px-4 py-4">
+                    <div className="shadow-hero-section mt-5 px-4 py-4 dark:(border-2 border-dark-border rounded-lg)">
                       <div
                         className="flex justify-between items-center"
                         onClick={() => setOpenFaqNumber(causeFaq.id)}
                       >
-                        <h5 className="font-medium text-global-primary text-2xl">
+                        <h5 className="font-medium text-global-primary text-2xl dark:(text-white)">
                           {causeFaq.question}
                         </h5>
                         <AiFillDownCircle
-                          className={`text-2xl text-global-green ${
+                          className={`text-2xl text-global-green dark:(text-global-yellow) ${
                             openFaqNumber == causeFaq.id ? "rotate-180" : ""
                           }`}
                         />
                       </div>
                       <p
-                        className={`text-light-grey duration-300 transition-all ease-linear ${
+                        className={`text-light-grey duration-300 transition-all ease-linear dark:(text-global-grey-dark) ${
                           openFaqNumber == causeFaq.id ? "" : "hidden"
                         }`}
                       >
@@ -157,7 +157,7 @@ function CauseDetail() {
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="name"
-                  className="text-global-primary font-medium"
+                  className="text-global-primary font-medium dark:(text-global-grey-dark)"
                 >
                   Last Name *
                 </label>
@@ -165,13 +165,13 @@ function CauseDetail() {
                   type={"text"}
                   id="name"
                   name={"name"}
-                  className="w-[20rem] h-10 border border-[#7AB82F30] rounded-md p-3"
+                  className="w-[20rem] h-10 border border-[#7AB82F30] rounded-md p-3 dark:(border-2 border-dark-border bg-dark-card text-global-grey-dark)"
                 />
               </div>
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="email"
-                  className="text-global-primary font-medium"
+                  className="text-global-primary font-medium dark:(text-global-grey-dark)"
                 >
                   Email Address *
                 </label>
@@ -179,13 +179,13 @@ function CauseDetail() {
                   type={"email"}
                   id="email"
                   name={"email"}
-                  className="w-[20rem] h-10 border border-[#7AB82F30] rounded-md p-3"
+                  className="w-[20rem] h-10 border border-[#7AB82F30] rounded-md p-3 dark:(border-2 border-dark-border bg-dark-card text-global-grey-dark)"
                 />
               </div>
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="amount"
-                  className="text-global-primary font-medium"
+                  className="text-global-primary font-medium dark:(text-global-grey-dark)"
                 >
                   Amount *
                 </label>
@@ -193,7 +193,7 @@ function CauseDetail() {
                   type={"number"}
                   id="amount"
                   name={"amount"}
-                  className="w-[20rem] h-10 border border-[#7AB82F30] rounded-md p-3"
+                  className="w-[20rem] h-10 border border-[#7AB82F30] rounded-md p-3 dark:(border-2 border-dark-border bg-dark-card text-global-grey-dark)"
                   onChange={(e) =>
                     setContributeData({
                       contributeAmount: parseFloat(e.currentTarget.value),
@@ -201,7 +201,7 @@ function CauseDetail() {
                   }
                 />
               </div>
-              <button onClick={contribute} className="bg-global-green text-white px-5 py-3 rounded-xl">
+              <button onClick={contribute} className="bg-global-green text-white px-5 py-3 rounded-xl dark:(bg-global-yellow text-black)">
                 Donate
               </button>
             </div>
