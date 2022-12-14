@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useConnect, useAccount } from "wagmi";
+import shortAddress from "../../utils/shortAddress"
 
 function Navbar() {
   const { connect, connectors, error, isLoading, pendingConnector } =
@@ -43,10 +44,10 @@ function Navbar() {
       name: "Create Cause",
       to: "/createcuase",
     },
-    {
-      name: "Create Category",
-      to: "/createcategory",
-    },
+    // {
+    //   name: "Create Category",
+    //   to: "/createcategory",
+    // },
   ];
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 relative z-10">
@@ -87,7 +88,7 @@ function Navbar() {
             })}
             <li>
               {isConnected ? (
-                <div className="bg-global-green py-2 px-4 rounded-xl text-white cursor-pointer">{address}</div>
+                <div className="bg-global-green py-2 px-4 rounded-xl text-white cursor-pointer">{shortAddress(address)}</div>
               ) : (
                 <div>
                   <div

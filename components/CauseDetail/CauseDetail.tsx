@@ -12,6 +12,9 @@ function CauseDetail() {
   const { causeId } = router.query;
   const { data: signer, isError } = useSigner();
   const provider = useProvider();
+  const [contributeData, setContributeData] = useState({
+    contributeAmount: 0,
+  });
   const [campaignData, setCampaignData] = useState<any>();
   const contract = useContract({
     address: process.env.NEXT_PUBLIC_VOLENCE_CONRACT,
@@ -45,6 +48,18 @@ function CauseDetail() {
     };
     setCampaignData(data);
     // setIsLoading(false);
+  };
+
+  const contribute = async () => {
+    const price = await ethers.utils.parseUnits(
+      contributeData.contributeAmount.toString(),
+      "ether"
+    );
+    const blogData = await contract?.contribute(causeId, {
+      value: price,
+    });
+    await blogData.wait();
+    console.log(blogData);
   };
   useEffect(() => {
     if (signer && causeId) {
@@ -89,11 +104,15 @@ function CauseDetail() {
           <div className="flex justify-between">
             <div className="flex gap-2">
               <span className="text-light-grey">Raised: </span>
-              <span className="text-global-orange ">$ {campaignData.raisedAmount}</span>
+              <span className="text-global-orange ">
+                $ {campaignData.raisedAmount}
+              </span>
             </div>
             <div className="flex gap-2">
               <span className="text-light-grey">Goal: </span>
-              <span className="text-global-orange ">$ {campaignData.targetAmount}</span>
+              <span className="text-global-orange ">
+                $ {campaignData.targetAmount}
+              </span>
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between">
@@ -101,9 +120,7 @@ function CauseDetail() {
               <h3 className="text-3xl text-global-primary">
                 {campaignData.title}
               </h3>
-              <p>
-               {campaignData.desc}
-              </p>
+              <p>{campaignData.desc}</p>
               <div className="flex flex-col gap-1">
                 {causeFaqList.map((causeFaq) => {
                   return (
@@ -177,9 +194,14 @@ function CauseDetail() {
                   id="amount"
                   name={"amount"}
                   className="w-[20rem] h-10 border border-[#7AB82F30] rounded-md p-3"
+                  onChange={(e) =>
+                    setContributeData({
+                      contributeAmount: parseFloat(e.currentTarget.value),
+                    })
+                  }
                 />
               </div>
-              <button className="bg-global-green text-white px-5 py-3 rounded-xl">
+              <button onClick={contribute} className="bg-global-green text-white px-5 py-3 rounded-xl">
                 Donate
               </button>
             </div>

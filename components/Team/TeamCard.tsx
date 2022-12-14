@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface teamStruct {
@@ -7,7 +8,7 @@ interface teamStruct {
   image: string;
   volunteerId: number;
   role: string;
-  email:string;
+  email: string;
   phone: string;
   location: string;
   active: string;
@@ -23,11 +24,11 @@ function TeamCard(teamData: teamStruct) {
         width={300}
         className="h-[20rem] w-[20rem] md:h-[34rem] md:w-[34rem] rounded-lg"
       />
-      <h3 className="text-3xl">{teamData.name}</h3>
+      <Link href={`/volunteer/${teamData.volunteerId}`}>
+        <h3 className="text-3xl">{teamData.name}</h3>
+      </Link>
       <span className="text-global-green">{teamData.role}</span>
-      <p className="text-light-grey">
-        {teamData.desc}
-      </p>
+      <p className="text-light-grey">{teamData.desc}</p>
     </div>
   );
 }

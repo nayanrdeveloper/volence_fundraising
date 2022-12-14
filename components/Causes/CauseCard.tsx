@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface causeStruct {
@@ -28,16 +29,26 @@ function CauseCard(causeData: any) {
       <div className="flex justify-between">
         <div className="flex gap-2">
           <span className="text-light-grey">Raised: </span>
-          <span className="text-global-orange ">$ {causeData.raisedAmount}</span>
+          <span className="text-global-orange ">
+            $ {causeData.raisedAmount}
+          </span>
         </div>
         <div className="flex gap-2">
           <span className="text-light-grey">Goal: </span>
-          <span className="text-global-orange ">$ {causeData.targetAmount}</span>
+          <span className="text-global-orange ">
+            $ {causeData.targetAmount}
+          </span>
         </div>
       </div>
-      <h3 className="font-semibold">{causeData.title}</h3>
-      <p className="text-light-grey">{causeData.desc.substring(0, 130) + '...'}</p>
-      <button className="text-white bg-global-green px-3 py-2 rounded-lg">Donate Now</button>
+      <Link href={`/cause/${causeData.projectId}`}>
+        <h3 className="font-semibold">{causeData.title}</h3>
+      </Link>
+      <p className="text-light-grey">
+        {causeData.desc.substring(0, 130) + "..."}
+      </p>
+      <button className="text-white bg-global-green px-3 py-2 rounded-lg">
+        Donate Now
+      </button>
     </div>
   );
 }
