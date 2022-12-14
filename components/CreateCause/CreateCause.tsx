@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import voielnceAbi from "../../ContractAbi/violenceAbi";
-import { useContract } from "wagmi";
+import { useContract, useSigner, useProvider } from "wagmi";
+import axios from "axios";
 import { ethers } from "ethers";
-import { useSigner } from "wagmi";
 import { NFTStorage, File } from "nft.storage";
 
 function CreateCause() {
   const { data: signer, isError, isLoading } = useSigner();
+  const provider = useProvider();
   const contract = useContract({
     address: process.env.NEXT_PUBLIC_VOLENCE_CONRACT,
     abi: voielnceAbi,
-    signerOrProvider: signer,
+    signerOrProvider: signer || provider,
   });
   let curr = new Date();
   curr.setDate(curr.getDate() + 28);
@@ -52,6 +52,7 @@ function CreateCause() {
       causeInputs.desc,
       Math.abs(dateToTimestamp(causeInputs.date)),
       price,
+      1,
       causeInputs.location,
       causeInputs.category,
       ipfsURL

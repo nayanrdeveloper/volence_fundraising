@@ -26,47 +26,47 @@ function CausesPage() {
   });
 
   const getItems = async () => {
-    try {
-      const data = await contract?.getVolunterById(`1`);
-
-      let newItems: any = await Promise.all(
-        data.map(async (d: any) => {
+    const projectsData = await contract?.getAllProjects();
+      const data: any = await Promise.all(
+        projectsData.map(async (d: any) => {
+          // console.log(d);
+          
           const meta = await axios.get(d.Img);
-          const targetAmount = ethers.utils.formatUnits(
+          // console.log(meta);
+          
+          const projectId = d.OrgainizationId.toNumber();
+          const imageUrl = `https://ipfs.io/ipfs/${meta.data.image.substr(7)}`;
+          const targetAmount = await ethers.utils.formatUnits(
             d.Target.toString(),
             "ether"
           );
-          const raisedAmount = ethers.utils.formatUnits(
+          const raisedAmount = await ethers.utils.formatUnits(
             d.CapitalRaised.toString(),
             "ether"
           );
-          const imageUrl = `https://ipfs.io/ipfs/${meta.data.image.substr(7)}`;
           return {
-            projectId: d.OrgainizationId.toNumber(),
             title: d.Title,
-            category: d.Category,
             desc: d.Description,
-            targetAmount,
-            raisedAmount,
             image: imageUrl,
+            projectId: projectId,
+            raisedAmount: raisedAmount,
+            targetAmount: targetAmount,
+            category: d.Category,
             creator: d.Creator,
             deadline: d.Deadline.toNumber(),
             location: d.Location,
-            numRequests: d.numRequests.toNumber(),
           };
         })
       );
-      setCampaignList(newItems);
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  };
+      setCampaignList(data);
+      console.log(data);
+  }
 
   useEffect(() => {
     if (signer) {
       getItems();
     }
-  });
+  },[]);
   const causeList: causeStruct[] = [
     {
       title: "Help For Humanity",
