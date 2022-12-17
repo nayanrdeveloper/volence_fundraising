@@ -1,5 +1,17 @@
+import { motion } from "framer-motion";
 import React from "react";
 import CauseCard from "./CauseCard";
+
+const variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
+
 
 function Causes() {
   interface causeStruct {
@@ -47,11 +59,13 @@ function Causes() {
         <h4 className="text-global-primary text-3xl font-semibold dark:(text-white)">
           Are You Ready For a Better Our Active Campaigns.
         </h4>
+        <motion.div variants={variants} initial="hidden" animate="show">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-5">
           {causeList.map((causeData, index) => {
             return <CauseCard {...causeData} key={index} />;
           })}
         </div>
+        </motion.div>
       </div>
     </div>
   );

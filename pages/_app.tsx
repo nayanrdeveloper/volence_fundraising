@@ -74,7 +74,7 @@ const client = createClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="dark:dark-design dark:bg-[#030B29]">
+    <div className="dark:(bg-[#030B29])">
       <WagmiConfig client={client}>
         <ThemeProvider attribute="class">
           <Navbar />

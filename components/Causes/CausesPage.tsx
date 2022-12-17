@@ -4,6 +4,17 @@ import axios from "axios";
 import { useSigner, useContract, useProvider } from "wagmi";
 import { ethers } from "ethers";
 import voielnceAbi from "../../ContractAbi/violenceAbi";
+import { motion } from "framer-motion";
+
+const variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
 
 function CausesPage() {
   const { data: signer, isError } = useSigner();
@@ -27,46 +38,46 @@ function CausesPage() {
 
   const getItems = async () => {
     const projectsData = await contract?.getAllProjects();
-      const data: any = await Promise.all(
-        projectsData.map(async (d: any) => {
-          // console.log(d);
-          
-          const meta = await axios.get(d.Img);
-          // console.log(meta);
-          
-          const projectId = d.OrgainizationId.toNumber();
-          const imageUrl = `https://ipfs.io/ipfs/${meta.data.image.substr(7)}`;
-          const targetAmount = await ethers.utils.formatUnits(
-            d.Target.toString(),
-            "ether"
-          );
-          const raisedAmount = await ethers.utils.formatUnits(
-            d.CapitalRaised.toString(),
-            "ether"
-          );
-          return {
-            title: d.Title,
-            desc: d.Description,
-            image: imageUrl,
-            projectId: projectId,
-            raisedAmount: raisedAmount,
-            targetAmount: targetAmount,
-            category: d.Category,
-            creator: d.Creator,
-            deadline: d.Deadline.toNumber(),
-            location: d.Location,
-          };
-        })
-      );
-      setCampaignList(data);
-      console.log(data);
-  }
+    const data: any = await Promise.all(
+      projectsData.map(async (d: any) => {
+        // console.log(d);
+
+        const meta = await axios.get(d.Img);
+        // console.log(meta);
+
+        const projectId = d.OrgainizationId.toNumber();
+        const imageUrl = `https://ipfs.io/ipfs/${meta.data.image.substr(7)}`;
+        const targetAmount = await ethers.utils.formatUnits(
+          d.Target.toString(),
+          "ether"
+        );
+        const raisedAmount = await ethers.utils.formatUnits(
+          d.CapitalRaised.toString(),
+          "ether"
+        );
+        return {
+          title: d.Title,
+          desc: d.Description,
+          image: imageUrl,
+          projectId: projectId,
+          raisedAmount: raisedAmount,
+          targetAmount: targetAmount,
+          category: d.Category,
+          creator: d.Creator,
+          deadline: d.Deadline.toNumber(),
+          location: d.Location,
+        };
+      })
+    );
+    setCampaignList(data);
+    console.log(data);
+  };
 
   useEffect(() => {
     if (signer) {
       getItems();
     }
-  },[]);
+  }, []);
   const causeList: causeStruct[] = [
     {
       title: "Help For Humanity",
@@ -125,15 +136,20 @@ function CausesPage() {
   ];
   return (
     <div className="container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-10">
-      <h3 className="text-4xl text-global-primary text-center dark:(text-global-yellow)">Causes</h3>
+      <h3 className="text-4xl text-global-primary text-center dark:(text-global-yellow)">
+        Causes
+      </h3>
       <h4 className="text-center text-2xl font-normal">
         Are You Ready For a Better Our Active Campaigns.
       </h4>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-5">
-        {campaignList && campaignList.map((causeData: any, index: number) => {
-          return <CauseCard {...causeData} key={index} />;
-        })}
-      </div>
+      <motion.div variants={variants}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-5">
+          {campaignList &&
+            campaignList.map((causeData: any, index: number) => {
+              return <CauseCard {...causeData} key={index} />;
+            })}
+        </div>
+      </motion.div>
     </div>
   );
 }

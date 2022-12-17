@@ -25,6 +25,7 @@ function CauseDetail() {
   const getCauseDetails = async () => {
     const blogData = await contract?.getProjectById(causeId);
     const meta = await axios.get(blogData.Img);
+    console.log(meta.data);
     const imageUrl = `https://ipfs.io/ipfs/${meta.data.image.substr(7)}`;
     const targetAmount = await ethers.utils.formatUnits(
       blogData.Target.toString(),
@@ -45,6 +46,7 @@ function CauseDetail() {
       creator: blogData.Creator,
       deadline: blogData.Deadline.toNumber(),
       location: blogData.Location,
+      faqs: meta.data.faqs,
     };
     setCampaignData(data);
     // setIsLoading(false);
@@ -122,7 +124,7 @@ function CauseDetail() {
               </h3>
               <p>{campaignData.desc}</p>
               <div className="flex flex-col gap-1">
-                {causeFaqList.map((causeFaq) => {
+                {campaignData.faqs.map((causeFaq: any) => {
                   return (
                     <div className="shadow-hero-section mt-5 px-4 py-4 dark:(border-2 border-dark-border rounded-lg)">
                       <div
@@ -156,31 +158,12 @@ function CauseDetail() {
               </h4>
               <div className="flex flex-col gap-2">
                 <label
-                  htmlFor="name"
+                  htmlFor="amount"
                   className="text-global-primary font-medium dark:(text-global-grey-dark)"
                 >
-                  Last Name *
+                  Message
                 </label>
-                <input
-                  type={"text"}
-                  id="name"
-                  name={"name"}
-                  className="w-[20rem] h-10 border border-[#7AB82F30] rounded-md p-3 dark:(border-2 border-dark-border bg-dark-card text-global-grey-dark)"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="email"
-                  className="text-global-primary font-medium dark:(text-global-grey-dark)"
-                >
-                  Email Address *
-                </label>
-                <input
-                  type={"email"}
-                  id="email"
-                  name={"email"}
-                  className="w-[20rem] h-10 border border-[#7AB82F30] rounded-md p-3 dark:(border-2 border-dark-border bg-dark-card text-global-grey-dark)"
-                />
+                <textarea className="w-[20rem] h-20 border border-[#7AB82F30] rounded-md p-3 dark:(border-2 border-dark-border bg-dark-card text-global-grey-dark)"></textarea>
               </div>
               <div className="flex flex-col gap-2">
                 <label
@@ -201,7 +184,10 @@ function CauseDetail() {
                   }
                 />
               </div>
-              <button onClick={contribute} className="bg-global-green text-white px-5 py-3 rounded-xl dark:(bg-global-yellow text-black)">
+              <button
+                onClick={contribute}
+                className="bg-global-green text-white px-5 py-3 rounded-xl dark:(bg-global-yellow text-black)"
+              >
                 Donate
               </button>
             </div>

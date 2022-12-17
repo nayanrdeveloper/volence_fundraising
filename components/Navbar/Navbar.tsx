@@ -3,20 +3,21 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useConnect, useAccount } from "wagmi";
-import shortAddress from "../../utils/shortAddress"
-import {useTheme} from "next-themes";
-import { MdOutlineDarkMode } from 'react-icons/md';
-import { CiLight } from 'react-icons/ci';
-
-
+import shortAddress from "../../utils/shortAddress";
+import { useTheme } from "next-themes";
+import { MdOutlineDarkMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 function Navbar() {
   const { connect, connectors, error, isLoading, pendingConnector } =
     useConnect();
-  const {theme, setTheme} = useTheme();
+  const { theme, setTheme } = useTheme();
   const { address, isConnecting, isDisconnected, isConnected } = useAccount();
   const [open, setOpen] = useState(false);
   const [showWalletList, setShowWalletList] = useState<boolean>(false);
+  const path = usePathname();
   interface navItemStruct {
     name: string;
     to: string;
@@ -76,24 +77,41 @@ function Navbar() {
           id="navbar-default"
         >
           <ul className="flex items-center flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
-            <li onClick={() => setTheme(theme == 'light' ? 'dark' : 'light')} className="cursor-pointer">
-              {theme == 'light'? <div className="p-2 flex gap-2 items-center shadow-hero-section"><MdOutlineDarkMode className="text-2xl" /> Dark</div> : <div className="p-2 flex gap-2 items-center shadow-hero-section dark:(border-2 border-dark-border rounded-2xl)"><CiLight className="text-2xl" /> Light</div>}
+            <li
+              onClick={() => setTheme(theme == "light" ? "dark" : "light")}
+              className="cursor-pointer"
+            >
+              {theme == "light" ? (
+                <div className="p-2 flex gap-2 items-center shadow-hero-section">
+                  <MdOutlineDarkMode className="text-2xl" /> Dark
+                </div>
+              ) : (
+                <div className="p-2 flex gap-2 items-center shadow-hero-section dark:(border-2 border-dark-border rounded-2xl)">
+                  <CiLight className="text-2xl" /> Light
+                </div>
+              )}
             </li>
             {navItemList.map((navItem) => {
               return (
                 <li key={navItem.name}>
-                  <Link
-                    href={navItem.to}
-                    className="block py-2 pl-3 pr-4 text-light-grey rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-global-primary md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-[#FBAA30] dark:hover:text-white md:dark:hover:bg-transparent"
-                  >
-                    {navItem.name}
-                  </Link>
+                  <motion.div whileHover={{scale: 1.1}}>
+                    <Link
+                      href={navItem.to}
+                      className={`block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-global-primary md:p-0  md:dark:hover:text-white dark:hover:bg-[#FBAA30] dark:hover:text-white md:dark:hover:bg-transparent ${
+                        navItem.to == path ? "dark:text-global-yellow" : "dark:text-white"
+                      }`}
+                    >
+                      {navItem.name}
+                    </Link>
+                  </motion.div>
                 </li>
               );
             })}
             <li>
               {isConnected ? (
-                <div className="bg-global-green py-2 px-4 rounded-xl text-white cursor-pointer dark:(bg-global-yellow text-black)">{shortAddress(address)}</div>
+                <div className="bg-global-green py-2 px-4 rounded-xl text-white cursor-pointer dark:(bg-global-yellow text-black)">
+                  {shortAddress(address)}
+                </div>
               ) : (
                 <div>
                   <div

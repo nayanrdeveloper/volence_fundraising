@@ -4,7 +4,7 @@ import React from "react";
 function HeroSection() {
   return (
     <div>
-      <div className="flex flex-col md:flex-row container justify-between gap-4 items-center px-3 md:px-10 py-5 mt-3 md:mt-10">
+      <div className="flex flex-col md:flex-row container justify-between gap-4 items-center px-3 md:px-10 py-5 mt-3 md:mt-10 dark:(dark-design bg-cover bg-no-repeat)">
         <div className="flex flex-col gap-2">
           <h2 className="text-5xl">You Can Make A <span className="text-global-orange dark:text-global-yellow">Difference</span> In This World</h2>
           <p className="dark:text-global-grey-dark">
