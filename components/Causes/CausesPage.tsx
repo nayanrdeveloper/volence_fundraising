@@ -42,7 +42,8 @@ function CausesPage() {
       projectsData.map(async (d: any) => {
         // console.log(d);
 
-        const meta = await axios.get(d.Img);
+        let meta = await axios.get(d.Img);
+        // meta = meta.data;
         // console.log(meta);
 
         const projectId = d.OrgainizationId.toNumber();
@@ -57,15 +58,16 @@ function CausesPage() {
         );
         return {
           title: d.Title,
-          desc: d.Description,
+          desc: meta.data.description,
           image: imageUrl,
           projectId: projectId,
           raisedAmount: raisedAmount,
           targetAmount: targetAmount,
-          category: d.Category,
+          category: meta.data.category,
           creator: d.Creator,
           deadline: d.Deadline.toNumber(),
-          location: d.Location,
+          location: meta.data.location,
+          state: d.state
         };
       })
     );

@@ -29,12 +29,13 @@ function CreateCause() {
   });
   let curr = new Date();
   curr.setDate(curr.getDate() + 28);
+  // let date = Date.parse(curr);
   let date = curr.toISOString().substring(0, 10);
   const [causeInputs, setCauseInputs] = useState({
     title: "",
     desc: "",
     category: "",
-    date: date,
+    date: date || 0,
     amount: 0,
     location: "",
   });
@@ -51,6 +52,7 @@ function CreateCause() {
       const link = await nftStorage.store({
         image: image || null || undefined,
         name: causeInputs.title,
+        location: causeInputs.location,
         description: causeInputs.desc,
         price: causeInputs.amount,
         category: causeInputs.category,
@@ -75,12 +77,12 @@ function CreateCause() {
       });
       let NFTTranction = await contract?.createCauseProject(
         causeInputs.title,
-        causeInputs.desc,
+        // causeInputs.desc,
         Math.abs(dateToTimestamp(causeInputs.date)),
         price,
-        1,
-        causeInputs.location,
-        causeInputs.category,
+        0,
+        // causeInputs.location,
+        // causeInputs.category,
         ipfsURL
       );
       await NFTTranction.wait();
@@ -89,7 +91,7 @@ function CreateCause() {
         title: "",
         desc: "",
         category: "",
-        date: date,
+        date: Date.parse(date),
         amount: 0,
         location: "",
       });
@@ -135,7 +137,6 @@ function CreateCause() {
       setCount(count + 1);
     }
     console.log(faqList);
-    
   };
 
   const dateToTimestamp = (date: any) => {
@@ -194,12 +195,13 @@ function CreateCause() {
               placeholder="Deadline date"
               name="deadlineDate"
               value={causeInputs.date}
-              onChange={(e) =>
+              onChange={(e) => {
                 setCauseInputs({
                   ...causeInputs,
                   date: e.currentTarget.value || date,
-                })
-              }
+                });
+                
+              }}
             />
           </div>
           <div className="flex gap-2">

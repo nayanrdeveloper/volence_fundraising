@@ -21,7 +21,7 @@ const voielnceAbi = [
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "internalType": "address",
         "name": "contributor",
         "type": "address"
@@ -36,6 +36,12 @@ const voielnceAbi = [
         "indexed": false,
         "internalType": "uint256",
         "name": "currentTotal",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "projectId",
         "type": "uint256"
       }
     ],
@@ -80,6 +86,11 @@ const voielnceAbi = [
         "internalType": "uint256",
         "name": "_projectId",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_message",
+        "type": "string"
       }
     ],
     "name": "contribute",
@@ -101,11 +112,6 @@ const voielnceAbi = [
         "type": "string"
       },
       {
-        "internalType": "string",
-        "name": "_projectDesc",
-        "type": "string"
-      },
-      {
         "internalType": "uint256",
         "name": "_fundRaisingDeadline",
         "type": "uint256"
@@ -122,16 +128,6 @@ const voielnceAbi = [
       },
       {
         "internalType": "string",
-        "name": "_location",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_category",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
         "name": "_imgUri",
         "type": "string"
       }
@@ -144,34 +140,6 @@ const voielnceAbi = [
         "type": "uint256"
       }
     ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_projectId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_desc",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_value",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address payable",
-        "name": "_receipient",
-        "type": "address"
-      }
-    ],
-    "name": "createRequest",
-    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -197,11 +165,6 @@ const voielnceAbi = [
             "type": "string"
           },
           {
-            "internalType": "string",
-            "name": "Description",
-            "type": "string"
-          },
-          {
             "internalType": "uint256",
             "name": "Target",
             "type": "uint256"
@@ -215,16 +178,6 @@ const voielnceAbi = [
             "internalType": "uint256",
             "name": "Deadline",
             "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "Location",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "Category",
-            "type": "string"
           },
           {
             "internalType": "string",
@@ -412,11 +365,6 @@ const voielnceAbi = [
                 "type": "string"
               },
               {
-                "internalType": "string",
-                "name": "Description",
-                "type": "string"
-              },
-              {
                 "internalType": "uint256",
                 "name": "Target",
                 "type": "uint256"
@@ -430,16 +378,6 @@ const voielnceAbi = [
                 "internalType": "uint256",
                 "name": "Deadline",
                 "type": "uint256"
-              },
-              {
-                "internalType": "string",
-                "name": "Location",
-                "type": "string"
-              },
-              {
-                "internalType": "string",
-                "name": "Category",
-                "type": "string"
               },
               {
                 "internalType": "string",
@@ -518,19 +456,6 @@ const voielnceAbi = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "getContractBalance",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -558,11 +483,6 @@ const voielnceAbi = [
             "type": "string"
           },
           {
-            "internalType": "string",
-            "name": "Description",
-            "type": "string"
-          },
-          {
             "internalType": "uint256",
             "name": "Target",
             "type": "uint256"
@@ -576,16 +496,6 @@ const voielnceAbi = [
             "internalType": "uint256",
             "name": "Deadline",
             "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "Location",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "Category",
-            "type": "string"
           },
           {
             "internalType": "string",
@@ -747,11 +657,6 @@ const voielnceAbi = [
                 "type": "string"
               },
               {
-                "internalType": "string",
-                "name": "Description",
-                "type": "string"
-              },
-              {
                 "internalType": "uint256",
                 "name": "Target",
                 "type": "uint256"
@@ -765,16 +670,6 @@ const voielnceAbi = [
                 "internalType": "uint256",
                 "name": "Deadline",
                 "type": "uint256"
-              },
-              {
-                "internalType": "string",
-                "name": "Location",
-                "type": "string"
-              },
-              {
-                "internalType": "string",
-                "name": "Category",
-                "type": "string"
               },
               {
                 "internalType": "string",
@@ -922,24 +817,6 @@ const voielnceAbi = [
         "type": "uint256"
       }
     ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_projectId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_requestNo",
-        "type": "uint256"
-      }
-    ],
-    "name": "voteRequest",
-    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   }

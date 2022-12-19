@@ -32,9 +32,14 @@ const images = {
 };
 
 function CauseCard(causeData: any) {
+  enum State{
+    Funding,
+    Expired,
+    Funded
+  }
   return (
     <motion.div variants={images}>
-      <div className="p-5 flex flex-col gap-3 shadow-hero-section rounded-lg dark:(border-2 border-dark-border bg-dark-card)">
+      <div className="p-5 flex flex-col gap-3 shadow-hero-section rounded-lg dark:(border-2 border-dark-border bg-dark-card) relative z-10">
         <Image
           src={causeData.image}
           alt={causeData.title}
@@ -42,6 +47,8 @@ function CauseCard(causeData: any) {
           width={355}
           className="rounded-lg h-[20rem] w-[20rem] md:h-[22rem] md:w-[22rem]"
         />
+        <div className="absolute z-20 right-8 top-8 dark:(bg-global-yellow text-black) p-2 rounded-lg">{causeData.category}</div>
+        {/* <div className="absolute z-20 left-8 top-8 dark:(bg-global-yellow text-black) p-2 rounded-lg">{State[causeData.state]}</div> */}
         <div className="flex justify-between">
           <div className="flex gap-2">
             <span className="text-light-grey dark:(text-global-grey-dark)">

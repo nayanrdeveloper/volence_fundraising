@@ -15,8 +15,8 @@ function FooterCol1() {
         />
       </Link>
       <p className="text-light-grey mt-1 dark:(text-global-grey-dark)">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa quod
-        facilis iure quae accusantium officiis temporibus
+        Volence mission is to empower people to unite around ideas that
+        matter to them and together make those ideas come to life.
       </p>
     </div>
   );

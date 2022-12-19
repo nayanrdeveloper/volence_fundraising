@@ -6,12 +6,20 @@ function HeroSection() {
     <div>
       <div className="flex flex-col md:flex-row container justify-between gap-4 items-center px-3 md:px-10 py-5 mt-3 md:mt-10 dark:(dark-design bg-cover bg-no-repeat)">
         <div className="flex flex-col gap-2">
-          <h2 className="text-5xl">You Can Make A <span className="text-global-orange dark:text-global-yellow">Difference</span> In This World</h2>
+          <h2 className="text-5xl">
+            You Can Make A{" "}
+            <span className="text-global-orange dark:text-global-yellow">
+              Difference
+            </span>{" "}
+            In This World
+          </h2>
           <p className="dark:text-global-grey-dark">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est
-            dignissimos ut iure architecto unde, eos laudantium quae a, ea
-            doloremque magnam ipsam repellendus officia! A eveniet earum
-            laudantium sint expedita.
+            Volence crowdfunding campaigns are where new and groundbreaking
+            products take flight, sometimes long before they hit mainstream
+            availability. With thousands of campaigns launching every week,
+            there's great tech, design, and much more around every corner —
+            often with limited-time perks and pricing for the earliest backers.
+            Before it's everywhere, it's on Indiegogo.
           </p>
         </div>
         <div className="relative z-5 mx-10 mt-5 md:mt-0">
@@ -31,9 +39,23 @@ function HeroSection() {
           <div className="bg-line-pattern bg-global-green dark:(bg-global-yellow text-black) p-3 md:p-8 flex flex-col absolute bottom-7 left-[-1rem] md:left-[-3rem] rounded-md">
             <span className="text-white dark:text-black">Our Volunteers</span>
             <div className="flex items-center">
-                <Image src={'/volenteer.jpg'} alt='' height={50} width={50} className='rounded-full border-2 border-white' />
-                <Image src={'/volenteer.jpg'} alt='' height={50} width={50} className='rounded-full border-2 border-white' />
-                <span className="bg-white p-2 rounded-full text-global-green text-2xl dark:(text-global-yellow)">2+</span>
+              <Image
+                src={"/volenteer.jpg"}
+                alt=""
+                height={50}
+                width={50}
+                className="rounded-full border-2 border-white"
+              />
+              <Image
+                src={"/volenteer.jpg"}
+                alt=""
+                height={50}
+                width={50}
+                className="rounded-full border-2 border-white"
+              />
+              <span className="bg-white p-2 rounded-full text-global-green text-2xl dark:(text-global-yellow)">
+                2+
+              </span>
             </div>
           </div>
         </div>

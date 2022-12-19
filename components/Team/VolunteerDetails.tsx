@@ -42,7 +42,7 @@ function VolunteerDetails() {
     if (signer && volunteerId){
         getVolunteerDetails();
     }
-  })
+  }, []);
   return (
     <div>
       <div className="mt-5 flex flex-col container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-10">

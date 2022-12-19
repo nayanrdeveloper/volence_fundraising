@@ -28,15 +28,17 @@ function Feature() {
           })}
         </div>
         <div className="flex flex-col gap-2">
-          <h3 className="text-global-orange dark:(text-global-yellow)">Features</h3>
+          <h3 className="text-global-orange dark:(text-global-yellow)">
+            Features
+          </h3>
           <span className="text-3xl font-semibold">
             Donate To People In Our Features.
           </span>
           <p className="text-light-grey dark:(text-global-grey-dark)">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita
-            laborum quasi nesciunt itaque sapiente dignissimos fugit a eveniet,
-            inventore ullam enim aut ea, deserunt atque ipsum doloremque facilis
-            odio exercitationem.
+            With both live crowdfunding campaigns and innovative products
+            shipping now, there's no better place to start the hunt for cool and
+            clever innovations that surprise and delight. volence is where new
+            launches.
           </p>
           <ul className="">
             <li className="items-center flex gap-2 text-global-primary p-2 font-semibold dark:(text-white)">

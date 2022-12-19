@@ -3,12 +3,18 @@ import React, { useEffect, useState } from "react";
 import { AiFillDownCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { useSigner, useContract, useProvider } from "wagmi";
+import { useSigner, useContract, useProvider, useAccount } from "wagmi";
 import { ethers } from "ethers";
 import voielnceAbi from "../../ContractAbi/violenceAbi";
 
 function CauseDetail() {
+  enum State{
+    Funding = "Funding",
+    Expired= "Expired",
+    Funded= "Funded"
+  }
   const router = useRouter();
+  const { address } = useAccount();
   const { causeId } = router.query;
   const { data: signer, isError } = useSigner();
   const provider = useProvider();
@@ -24,8 +30,12 @@ function CauseDetail() {
 
   const getCauseDetails = async () => {
     const blogData = await contract?.getProjectById(causeId);
+    const myContribution = await contract?.myContributions(causeId, address);
+    const allContributon = await contract?.filters.FundReceiced(address,null, null,causeId);
+    console.log(allContributon);
+    
     const meta = await axios.get(blogData.Img);
-    console.log(meta.data);
+  
     const imageUrl = `https://ipfs.io/ipfs/${meta.data.image.substr(7)}`;
     const targetAmount = await ethers.utils.formatUnits(
       blogData.Target.toString(),
@@ -35,17 +45,22 @@ function CauseDetail() {
       blogData.CapitalRaised.toString(),
       "ether"
     );
+    const deadLineDate = new Date(blogData.Deadline.toNumber());
+    console.log(deadLineDate);
+    
+    const stringDate = deadLineDate.getDate() + '/' + (deadLineDate.getMonth()+1) + '/' + deadLineDate.getFullYear()
+    
     const data = {
       title: blogData.Title,
-      desc: blogData.Description,
+      desc: meta.data.description,
       image: imageUrl,
       projectId: blogData.OrgainizationId.toNumber(),
       raisedAmount: raisedAmount,
       targetAmount: targetAmount,
-      category: blogData.Category,
+      category: meta.data.category,
       creator: blogData.Creator,
-      deadline: blogData.Deadline.toNumber(),
-      location: blogData.Location,
+      deadline: stringDate,
+      location: meta.data.location,
       faqs: meta.data.faqs,
     };
     setCampaignData(data);
@@ -53,10 +68,13 @@ function CauseDetail() {
   };
 
   const contribute = async () => {
+    
+    
     const price = await ethers.utils.parseUnits(
       contributeData.contributeAmount.toString(),
       "ether"
     );
+    console.log(price);
     const blogData = await contract?.contribute(causeId, {
       value: price,
     });
@@ -67,7 +85,7 @@ function CauseDetail() {
     if (signer && causeId) {
       getCauseDetails();
     }
-  });
+  }, []);
   const causeFaqList = [
     {
       id: 1,
@@ -88,11 +106,11 @@ function CauseDetail() {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit.Porro, dignissimos voluptatum voluptatibus sunt verodoloribus.",
     },
   ];
-  const [openFaqNumber, setOpenFaqNumber] = useState<number>(1);
+  const [openFaqNumber, setOpenFaqNumber] = useState<number>(2);
   return (
     <div>
       {campaignData && (
-        <div className="mt-5 flex flex-col container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-10">
+        <div className="mt-5 flex flex-col container gap-4 px-3 md:px-10 py-5 mt-3 md:mt-6 relative z-10">
           <h3 className="text-3xl text-global-primary text-center p-5 bg-[#FAFCF6] dark:(bg-dark-card text-global-yellow border-2 border-dark-border) rounded-lg">
             Cause Details
           </h3>
@@ -103,33 +121,62 @@ function CauseDetail() {
             width={300}
             className="w-full h-[20rem] md:h-[32rem] rounded-lg"
           />
+          <div className="absolute z-20 top-36 right-14 bg-global-green text-white dark:(text-black bg-global-yellow) p-2 rounded-lg">{campaignData.category}</div>
           <div className="flex justify-between">
             <div className="flex gap-2">
-              <span className="text-light-grey">Raised: </span>
-              <span className="text-global-orange ">
+              <span className="text-light-grey font-semibold dark:(text-global-grey-dark)">Raised: </span>
+              <span className="text-light-grey dark:text-global-grey-dark">
                 $ {campaignData.raisedAmount}
               </span>
             </div>
             <div className="flex gap-2">
-              <span className="text-light-grey">Goal: </span>
-              <span className="text-global-orange ">
+              <span className="text-light-grey font-semibold dark:(text-global-grey-dark)">Goal: </span>
+              <span className="text-light-grey dark:text-global-grey-dark">
                 $ {campaignData.targetAmount}
               </span>
             </div>
           </div>
+          <div className="flex justify-between">
+            <div className="flex gap-2">
+              <span className="text-light-grey font-semibold dark:(text-global-grey-dark)">Creator: </span>
+              <span className="text-light-grey dark:text-global-grey-dark">
+                {campaignData.creator}
+              </span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-light-grey font-semibold dark:(text-global-grey-dark)">Location: </span>
+              <span className="text-light-grey dark:text-global-grey-dark">
+                {campaignData.location}
+              </span>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <div className="flex gap-2">
+              <span className="text-light-grey font-semibold dark:(text-global-grey-dark)">Deadline: </span>
+              <span className="text-light-grey dark:text-global-grey-dark">
+                {campaignData.deadline}
+              </span>
+            </div>
+            {/* <div className="flex gap-2">
+              <span className="text-light-grey dark:(text-global-grey-dark)">Location: </span>
+              <span className="text-global-orange ">
+                {campaignData.location}
+              </span>
+            </div> */}
+          </div>
           <div className="flex flex-col md:flex-row justify-between">
             <div>
-              <h3 className="text-3xl text-global-primary">
+              <h3 className="text-3xl text-global-primary dark:(text-white)">
                 {campaignData.title}
               </h3>
-              <p>{campaignData.desc}</p>
+              <p className="dark:(text-global-grey-dark)">{campaignData.desc}</p>
               <div className="flex flex-col gap-1">
                 {campaignData.faqs.map((causeFaq: any) => {
                   return (
                     <div className="shadow-hero-section mt-5 px-4 py-4 dark:(border-2 border-dark-border rounded-lg)">
                       <div
                         className="flex justify-between items-center"
-                        onClick={() => setOpenFaqNumber(causeFaq.id)}
+                        onClick={() => setOpenFaqNumber(causeFaq.index)}
                       >
                         <h5 className="font-medium text-global-primary text-2xl dark:(text-white)">
                           {causeFaq.question}
@@ -142,7 +189,7 @@ function CauseDetail() {
                       </div>
                       <p
                         className={`text-light-grey duration-300 transition-all ease-linear dark:(text-global-grey-dark) ${
-                          openFaqNumber == causeFaq.id ? "" : "hidden"
+                          openFaqNumber == causeFaq.index ? "" : "hidden"
                         }`}
                       >
                         {causeFaq.answer}
